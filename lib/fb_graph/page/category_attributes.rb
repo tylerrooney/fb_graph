@@ -89,18 +89,6 @@ module FbGraph
         end
         @checkin_count = attributes[:checkins]
         @hours = {}
-        if attributes[:hours]
-          attributes[:hours].each do |key, value|
-            date, index, mode = key.split('_')
-            index = index.to_i - 1
-            date, mode = date.to_sym, mode.to_sym
-            time = Time.parse(value)
-            time = Time.utc(1970, 1, 1, time.hour, time.min)
-            @hours[date] ||= []
-            @hours[date][index] ||= {}
-            @hours[date][index][mode] = time
-          end
-        end
         if attributes[:location]
           @location = Venue.new(attributes[:location])
         end
